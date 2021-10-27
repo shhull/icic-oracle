@@ -1,6 +1,6 @@
 #
-# Cookbook:: test
-# Recipe:: default
+# Cookbook:: icic-oracle
+# Recipe:: example
 #
 # Copyright:: 2021, The Authors, All Rights Reserved.
 
