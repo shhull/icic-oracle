@@ -2,12 +2,12 @@ require 'serverspec'
 
 set :backend, :exec
 
-#Check the required packages are installed
-%w{compat-libstdc++-33 libaio-devel unixODBC unixODBC-devel}.each do |pkg|
-  describe package( pkg ) do
-    it { should be_installed }
-  end
-end
+# #Check the required packages are installed
+# %w{compat-libstdc++-33 libaio-devel unixODBC unixODBC-devel}.each do |pkg|
+#   describe package( pkg ) do
+#     it { should be_installed }
+#   end
+# end
 
 #Check the required groups have been created
 %w{oinstall dba oper}.each do |grp|

@@ -1,5 +1,5 @@
 default['oracle']['setup']['hostname'] = 'chefclient1'
-default['oracle']['setup']['packages'] = %w{compat-libstdc++-33 libaio-devel unixODBC unixODBC-devel}
+# default['oracle']['setup']['packages'] = %w{compat-libstdc++-33 libaio-devel unixODBC unixODBC-devel}
 default['oracle']['setup']['oinstall_gid'] = '200'
 default['oracle']['setup']['dba_gid'] = '201'
 default['oracle']['setup']['oper_gid'] = '202'

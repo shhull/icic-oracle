@@ -7,12 +7,12 @@
 # All rights reserved - Do Not Redistribute
 #
 
-#Package requirements install
-node['oracle']['setup']['packages'].each do |pkg|
-  package pkg do
-    action  :install
-  end
-end
+# #Package requirements install
+# node['oracle']['setup']['packages'].each do |pkg|
+#   package pkg do
+#     action  :install
+#   end
+# end
 
 #groupadd oinstall
 group 'oinstall' do
