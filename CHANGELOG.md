@@ -1,10 +1,13 @@
-# icic-oracle CHANGELOG
+oracle CHANGELOG
+================
 
-This file is used to list changes made in each version of the icic-oracle cookbook.
+This file is used to list changes made in each version of the oracle cookbook.
 
-## 0.1.0
+0.1.0
+-----
+- [your_name] - Initial release of oracle
 
-Initial release.
+- - -
+Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.
 
-- change 0
-- change 1
+The [Github Flavored Markdown page](http://github.github.com/github-flavored-markdown/) describes the differences between markdown on github and standard markdown.

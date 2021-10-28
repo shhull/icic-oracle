@@ -1,0 +1,20 @@
+default['oracle']['setup']['hostname'] = 'chefclient1'
+default['oracle']['setup']['packages'] = %w{compat-libstdc++-33 libaio-devel unixODBC unixODBC-devel}
+default['oracle']['setup']['oinstall_gid'] = '200'
+default['oracle']['setup']['dba_gid'] = '201'
+default['oracle']['setup']['oper_gid'] = '202'
+default['oracle']['setup']['oracle_uid'] = '440'
+default['oracle']['setup']['user_password'] = 'oracle'
+default['oracle']['setup']['oracle_dir'] = '/u01/app'
+default['oracle']['setup']['oracle_base'] = "#{default['oracle']['setup']['oracle_dir']}/oracle"
+default['oracle']['setup']['oracle_home'] = "#{default['oracle']['setup']['oracle_base']}/product/19.3.0.0/dbhome_1"
+default['oracle']['setup']['oracle_data'] = "#{default['oracle']['setup']['oracle_dir']}/oradata"
+default['oracle']['setup']['oracle_inventry'] = "#{default['oracle']['setup']['oracle_dir']}/oraInventory"
+default['oracle']['setup']['install_dir'] = '/usr/local/src'
+default['oracle']['setup']['oracle_sid'] = 'orcl'
+default['oracle']['setup']['db_password'] = 'Oracle19c'
+default['oracle']['setup']['nls_lang'] = 'JAPANESE_JAPAN.UTF8'
+default['oracle']['setup']['env'] = {'ORACLE_BASE' => node['oracle']['setup']['oracle_base'],
+                                     'ORACLE_HOME' => node['oracle']['setup']['oracle_home'],
+                                     'ORACLE_UNQNAME' => node['oracle']['setup']['oracle_sid'],
+                                     'PATH' => "/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/usr/sbin:#{node['oracle']['setup']['oracle_base']}/dba/bin:#{node['oracle']['setup']['oracle_home']}/bin:"}
