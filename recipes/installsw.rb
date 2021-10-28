@@ -17,7 +17,7 @@
 # end
 
 #Deployment of the response file for runInstaller
-template "#{node['oracle']['setup']['install_dir']}/database/install/response/db_install.rsp" do
+template "#{node['oracle']['setup']['install_dir']}/install/response/db_install.rsp" do
   source 'db_install.rsp.erb'
   owner 'oracle'
   group 'oinstall'
@@ -46,9 +46,9 @@ end
 
 #run ./runInstaller
 bash 'run_installer_swonly' do
-  cwd "#{node['oracle']['setup']['install_dir']}/database"
+  cwd "#{node['oracle']['setup']['install_dir']}"
   environment  (node['oracle']['setup']['env'])
-  code "sudo -Eu oracle ./runInstaller -silent -waitForCompletion -ignorePrereqFailure -responseFile #{node['oracle']['setup']['install_dir']}/database/install/response/db_install.rsp"
+  code "sudo -Eu oracle ./runInstaller -silent -waitForCompletion -ignorePrereqFailure -responseFile #{node['oracle']['setup']['install_dir']}/install/response/db_install.rsp"
   returns [0, 253]
 end
 
