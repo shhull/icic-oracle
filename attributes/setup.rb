@@ -11,6 +11,7 @@ default['oracle']['setup']['oracle_home'] = "#{default['oracle']['setup']['oracl
 default['oracle']['setup']['oracle_data'] = "#{default['oracle']['setup']['oracle_dir']}/oradata"
 default['oracle']['setup']['oracle_inventry'] = "#{default['oracle']['setup']['oracle_dir']}/oraInventory"
 default['oracle']['setup']['install_dir'] = '/usr/local/src'
+default['oracle']['setup']['install_dir_base'] = '/usr/local/src/oracle'
 default['oracle']['setup']['oracle_sid'] = 'orcl'
 default['oracle']['setup']['db_password'] = 'Oracle19c'
 default['oracle']['setup']['nls_lang'] = 'JAPANESE_JAPAN.UTF8'
