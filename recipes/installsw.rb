@@ -59,7 +59,7 @@ execute 'run_root.sh' do
 end
 
 #Deployment of the listener.ora
-template "#{node['oracle']['setup']['install_dir']}/network/admin/sample/listener.ora" do
+template "#{node['oracle']['setup']['install_dir']}/network/admin/samples/listener.ora" do
   source 'listener.ora.erb'
   owner 'oracle'
   group 'oinstall'
