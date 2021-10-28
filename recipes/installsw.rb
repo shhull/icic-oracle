@@ -54,12 +54,12 @@ end
 
 #run root.sh as root
 execute 'run_root.sh' do
-  command "#{node['oracle']['setup']['oracle_home']}/root.sh"
+  command "#{node['oracle']['setup']['install_dir']}/root.sh"
   action :run
 end
 
 #Deployment of the listener.ora
-template "#{node['oracle']['setup']['oracle_home']}/network/admin/sample/listener.ora" do
+template "#{node['oracle']['setup']['install_dir']}/network/admin/sample/listener.ora" do
   source 'listener.ora.erb'
   owner 'oracle'
   group 'oinstall'
@@ -68,7 +68,7 @@ end
 
 #Start the listener
 execute 'start_listener' do
-  command "#{node['oracle']['setup']['oracle_home']}/bin/lsnrctl start"
+  command "#{node['oracle']['setup']['install_dir']}/bin/lsnrctl start"
   environment  (node['oracle']['setup']['env'])
   user 'oracle'
   group 'oinstall'
