@@ -48,7 +48,7 @@
 bash 'run_installer_swonly' do
   cwd "#{node['oracle']['setup']['install_dir']}/database"
   environment  (node['oracle']['setup']['env'])
-  code "sudo -Eu oracle ./runInstaller -silent -waitforcompletion -ignoreSysPrereqs -responseFile #{node['oracle']['setup']['install_dir']}/database/response/db_install.rsp -invPtrLoc #{node['oracle']['setup']['oracle_home']}/oraInst.loc"
+  code "sudo -Eu oracle ./runInstaller -silent -waitForCompletion -ignorePrereqFailure -responseFile #{node['oracle']['setup']['install_dir']}/database/install/response/db_install.rsp -invPtrLoc #{node['oracle']['setup']['oracle_home']}/oraInst.loc"
   returns [0, 253]
 end
 
@@ -59,7 +59,7 @@ execute 'run_root.sh' do
 end
 
 #Deployment of the listener.ora
-template "#{node['oracle']['setup']['oracle_home']}/network/admin/listener.ora" do
+template "#{node['oracle']['setup']['oracle_home']}/network/admin/sample/listener.ora" do
   source 'listener.ora.erb'
   owner 'oracle'
   group 'oinstall'
