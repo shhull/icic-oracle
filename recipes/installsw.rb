@@ -66,11 +66,11 @@ template "#{node['oracle']['setup']['install_dir']}/network/admin/samples/listen
   mode '0644'
 end
 
-#Start the listener
-execute 'start_listener' do
-  command "#{node['oracle']['setup']['install_dir']}/bin/lsnrctl start"
-  environment  (node['oracle']['setup']['env'])
-  user 'oracle'
-  group 'oinstall'
-  action :run
-end
+# #Start the listener
+# execute 'start_listener' do
+#   command "#{node['oracle']['setup']['install_dir']}/bin/lsnrctl start"
+#   environment  (node['oracle']['setup']['env'])
+#   user 'oracle'
+#   group 'oinstall'
+#   action :run
+# end
