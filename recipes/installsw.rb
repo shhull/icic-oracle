@@ -7,42 +7,42 @@
 # All rights reserved - Do Not Redistribute
 #
 
-#Transfer installation files
-remote_directory "#{node['oracle']['setup']['install_dir']}/database" do
-  source 'database'
-  owner 'oracle'
-  group 'oinstall'
-  mode "0775"
-  recursive true
-end
+# #Transfer installation files
+# remote_directory "#{node['oracle']['setup']['install_dir']}/database" do
+#   source 'database'
+#   owner 'oracle'
+#   group 'oinstall'
+#   mode "0775"
+#   recursive true
+# end
 
-#Deployment of the response file for runInstaller
-template "#{node['oracle']['setup']['install_dir']}/database/response/db_install.rsp" do
-  source 'db_install.rsp.erb'
-  owner 'oracle'
-  group 'oinstall'
-  mode '0644'
-end
+# #Deployment of the response file for runInstaller
+# template "#{node['oracle']['setup']['install_dir']}/database/response/db_install.rsp" do
+#   source 'db_install.rsp.erb'
+#   owner 'oracle'
+#   group 'oinstall'
+#   mode '0644'
+# end
 
-#Permission settings of the installation file
-execute 'chown_database_install_files' do
-  command <<-"EOH"
-    chown -R oracle:oinstall #{node['oracle']['setup']['install_dir']}/database
-    chmod -R 775 #{node['oracle']['setup']['install_dir']}/database
-  EOH
-  action :run
-  only_if { ::File.exists?("#{node['oracle']['setup']['install_dir']}/database") }
-end
+# #Permission settings of the installation file
+# execute 'chown_database_install_files' do
+#   command <<-"EOH"
+#     chown -R oracle:oinstall #{node['oracle']['setup']['install_dir']}/database
+#     chmod -R 775 #{node['oracle']['setup']['install_dir']}/database
+#   EOH
+#   action :run
+#   only_if { ::File.exists?("#{node['oracle']['setup']['install_dir']}/database") }
+# end
 
-#Remove files under the ORACLE_BASE and ORACLE_INVENTRY if exists
-execute 'remove_install_directory' do
-  command <<-"EOH"
-    rm -rf #{node['oracle']['setup']['oracle_base']}/*
-    rm -rf #{node['oracle']['setup']['oracle_inventry']}/*
-  EOH
-  action :run
-  only_if { ::File.exists?("#{node['oracle']['setup']['oracle_home']}") }
-end
+# #Remove files under the ORACLE_BASE and ORACLE_INVENTRY if exists
+# execute 'remove_install_directory' do
+#   command <<-"EOH"
+#     rm -rf #{node['oracle']['setup']['oracle_base']}/*
+#     rm -rf #{node['oracle']['setup']['oracle_inventry']}/*
+#   EOH
+#   action :run
+#   only_if { ::File.exists?("#{node['oracle']['setup']['oracle_home']}") }
+# end
 
 #run ./runInstaller
 bash 'run_installer_swonly' do
