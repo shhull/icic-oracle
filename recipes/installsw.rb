@@ -48,7 +48,7 @@
 bash 'run_installer_swonly' do
   cwd "#{node['oracle']['setup']['install_dir']}/database"
   environment  (node['oracle']['setup']['env'])
-  code "sudo -Eu oracle ./runInstaller -silent -waitForCompletion -ignorePrereqFailure -responseFile #{node['oracle']['setup']['install_dir']}/database/install/response/db_install.rsp -invPtrLoc #{node['oracle']['setup']['oracle_home']}/oraInst.loc"
+  code "sudo -Eu oracle ./runInstaller -silent -waitForCompletion -ignorePrereqFailure -responseFile #{node['oracle']['setup']['install_dir']}/database/install/response/db_install.rsp"
   returns [0, 253]
 end
 
