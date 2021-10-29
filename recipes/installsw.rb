@@ -16,6 +16,15 @@
 #   recursive true
 # end
 
+#Remove the ORACLE_HOME 
+base 'remove_oracle_home' do
+  cwd "#{node['oracle']['setup']['install_dir']}"
+  environment  (node['oracle']['setup']['env'])
+  code "sudo -Eu oracle ./runInstaller -silent -detachHome ORACLE_HOME=#{node['oracle']['setup']['install_dir']}"
+  returns [0, 253]
+end
+
+
 #Deployment of the response file for runInstaller
 template "#{node['oracle']['setup']['install_dir']}/install/response/db_install.rsp" do
   source 'db_install.rsp.erb'
@@ -58,13 +67,13 @@ execute 'run_root.sh' do
   action :run
 end
 
-#Deployment of the listener.ora
-template "#{node['oracle']['setup']['install_dir']}/network/admin/samples/listener.ora" do
-  source 'listener.ora.erb'
-  owner 'oracle'
-  group 'oinstall'
-  mode '0644'
-end
+# #Deployment of the listener.ora
+# template "#{node['oracle']['setup']['install_dir']}/network/admin/samples/listener.ora" do
+#   source 'listener.ora.erb'
+#   owner 'oracle'
+#   group 'oinstall'
+#   mode '0644'
+# end
 
 # #Start the listener
 # execute 'start_listener' do
