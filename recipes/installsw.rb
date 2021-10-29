@@ -75,8 +75,8 @@ bash 'run_installer_swonly' do
   returns [0, 253]
 end
 
-sudo -Eu oracle ./netca -silent -responsefile /home/u19/assistants/netca/netca.rsp
-sudo -Eu oracle ./lsnrctl start LISTENER
+# sudo -Eu oracle ./netca -silent -responsefile /home/u19/assistants/netca/netca.rsp
+# sudo -Eu oracle ./lsnrctl start LISTENER
 
 #run root.sh as root
 execute 'run_root.sh' do
