@@ -81,6 +81,12 @@ execute 'run_root.sh' do
   action :run
 end
 
+#run orainstRoot.sh as root
+execute 'orainstRoot.sh' do
+  command "#{node['oracle']['setup']['oracle_inventry']}/orainstRoot.sh"
+  action :run
+end
+
 # #Deployment of the listener.ora
 # template "#{node['oracle']['setup']['install_dir']}/network/admin/samples/listener.ora" do
 #   source 'listener.ora.erb'
