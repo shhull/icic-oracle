@@ -17,7 +17,7 @@
 # end
 
 #Remove the ORACLE_HOME 
-base 'remove_oracle_home' do
+bash 'remove_oracle_home' do
   cwd "#{node['oracle']['setup']['install_dir']}"
   environment  (node['oracle']['setup']['env'])
   code "sudo -Eu oracle ./runInstaller -silent -detachHome ORACLE_HOME=#{node['oracle']['setup']['install_dir']}"
