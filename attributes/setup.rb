@@ -16,9 +16,9 @@ default['oracle']['setup']['oracle_data'] = "#{default['oracle']['setup']['oracl
 #数据库创建及使用过程中的日志目录
 default['oracle']['setup']['oracle_inventry'] = "#{default['oracle']['setup']['oracle_dir']}/oraInventory"
 
-default['oracle']['setup']['oracle_sid'] = 'orcl'
+default['oracle']['setup']['oracle_sid'] = 'icic'
 default['oracle']['setup']['db_password'] = 'Oracle19c'
-default['oracle']['setup']['nls_lang'] = 'JAPANESE_JAPAN.UTF8'
+default['oracle']['setup']['nls_lang'] = 'AL32UTF8'
 default['oracle']['setup']['env'] = {'ORACLE_BASE' => node['oracle']['setup']['oracle_base'],
                                      'ORACLE_HOME' => node['oracle']['setup']['oracle_home'],
                                      'ORACLE_UNQNAME' => node['oracle']['setup']['oracle_sid'],

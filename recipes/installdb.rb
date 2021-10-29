@@ -8,8 +8,8 @@
 #
 
 #Deployment of the dbca template
-template "#{node['oracle']['setup']['oracle_home']}/assistants/dbca/templates/db_create.dbt" do
-  source 'db_create.dbt.erb'
+template "#{node['oracle']['setup']['oracle_home']}/assistants/dbca/dbca.rsp" do
+  source 'dbca.rsp.erb'
   owner 'oracle'
   group 'oinstall'
   mode '0644'
@@ -18,5 +18,5 @@ end
 #Create Database
 bash 'dbca_create_db' do
    environment (node['oracle']['setup']['env'])
-   code "sudo -Eu oracle dbca -silent -createDatabase -templateName db_create.dbt -gdbname #{node['oracle']['setup']['oracle_sid']} -sid #{node['oracle']['setup']['oracle_sid']} -sysPassword #{node['oracle']['setup']['db_password']} -systemPassword #{node['oracle']['setup']['db_password']}"
+   code "sudo -Eu oracle dbca -silent -createDatabase -templateName General_Purpose.dbc -gdbname #{node['oracle']['setup']['oracle_sid']} -sid #{node['oracle']['setup']['oracle_sid']} -sysPassword #{node['oracle']['setup']['db_password']} -systemPassword #{node['oracle']['setup']['db_password']}"
 end

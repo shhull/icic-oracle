@@ -75,6 +75,9 @@ bash 'run_installer_swonly' do
   returns [0, 253]
 end
 
+sudo -Eu oracle ./netca -silent -responsefile /home/u19/assistants/netca/netca.rsp
+sudo -Eu oracle ./lsnrctl start LISTENER
+
 #run root.sh as root
 execute 'run_root.sh' do
   command "#{node['oracle']['setup']['install_dir']}/root.sh"
@@ -87,19 +90,29 @@ end
 #   action :run
 # end
 
-# #Deployment of the listener.ora
-# template "#{node['oracle']['setup']['install_dir']}/network/admin/samples/listener.ora" do
-#   source 'listener.ora.erb'
-#   owner 'oracle'
-#   group 'oinstall'
-#   mode '0644'
-# end
 
-# #Start the listener
-# execute 'start_listener' do
-#   command "#{node['oracle']['setup']['install_dir']}/bin/lsnrctl start"
-#   environment  (node['oracle']['setup']['env'])
-#   user 'oracle'
-#   group 'oinstall'
-#   action :run
-# end
+#start the licenstener
+bash 'run_listener' do
+  cwd "#{node['oracle']['setup']['install_dir']}/bin"
+  environment  (node['oracle']['setup']['env'])
+  code "sudo -Eu oracle ./netca -silent -responseFile #{node['oracle']['setup']['install_dir']}/assistants/netca/netca.rsp"
+  returns [0, 253]
+end
+
+
+#Deployment of the listener.ora
+template "#{node['oracle']['setup']['install_dir']}/network/admin/listener.ora" do
+  source 'listener.ora.erb'
+  owner 'oracle'
+  group 'oinstall'
+  mode '0644'
+end
+
+#Start the listener
+execute 'start_listener' do
+  command "#{node['oracle']['setup']['install_dir']}/bin/lsnrctl start"
+  environment  (node['oracle']['setup']['env'])
+  user 'oracle'
+  group 'oinstall'
+  action :run
+end

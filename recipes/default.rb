@@ -9,5 +9,5 @@
 
 include_recipe 'oracle::setup'
 include_recipe 'oracle::installsw'
-# include_recipe 'oracle::installdb'
+include_recipe 'oracle::installdb'
 # include_recipe 'oracle::installem'
