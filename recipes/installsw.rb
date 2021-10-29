@@ -24,6 +24,14 @@ bash 'remove_oracle_home' do
   returns [0, 253]
 end
 
+#Deployment of the response file for deinstall
+template "#{node['oracle']['setup']['install_dir']}/install/response/deinstall.rsp.tmpl" do
+  source 'deinstall.rsp.erb'
+  owner 'oracle'
+  group 'oinstall'
+  mode '0644'
+end
+
 
 #Deployment of the response file for runInstaller
 template "#{node['oracle']['setup']['install_dir']}/install/response/db_install.rsp" do
@@ -31,6 +39,14 @@ template "#{node['oracle']['setup']['install_dir']}/install/response/db_install.
   owner 'oracle'
   group 'oinstall'
   mode '0644'
+end
+
+#Remove the ORACLE_HOME 
+bash 'deinstall_oracle_home' do
+  cwd "#{node['oracle']['setup']['install_dir']}/deinstall/"
+  environment  (node['oracle']['setup']['env'])
+  code "sudo -Eu oracle ./deinstall -paramfile #{node['oracle']['setup']['install_dir']}/install/response/deinstall.rsp.tmpl"
+  returns [0, 253]
 end
 
 # #Permission settings of the installation file
