@@ -16,12 +16,12 @@
 #   recursive true
 # end
 
-#Remove the ORACLE_HOME 
-bash 'remove_oracle_home' do
-  cwd "#{node['oracle']['setup']['install_dir']}"
-  environment  (node['oracle']['setup']['env'])
-  code "sudo -Eu oracle ./runInstaller -silent -detachHome ORACLE_HOME=#{node['oracle']['setup']['install_dir']}"
-end
+# #Remove the ORACLE_HOME 
+# bash 'remove_oracle_home' do
+#   cwd "#{node['oracle']['setup']['install_dir']}"
+#   environment  (node['oracle']['setup']['env'])
+#   code "sudo -Eu oracle ./runInstaller -silent -detachHome ORACLE_HOME=#{node['oracle']['setup']['install_dir']}"
+# end
 
 #Deployment of the response file for deinstall
 template "#{node['oracle']['setup']['install_dir']}/install/response/deinstall.rsp.tmpl" do
