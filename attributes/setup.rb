@@ -8,9 +8,9 @@ default['oracle']['setup']['user_password'] = 'oracle'
 #解压包目录
 default['oracle']['setup']['install_dir'] = '/home/u19'
 default['oracle']['setup']['oracle_dir'] = '/opt/app'
-default['oracle']['setup']['oracle_base'] = "#{default['oracle']['setup']['oracle_dir']}/oracle"
+default['oracle']['setup']['oracle_base'] = "#{default['oracle']['setup']['oracle_dir']}"
 #创建安装目录
-default['oracle']['setup']['oracle_home'] = "#{default['oracle']['setup']['oracle_base']}/product/19.3.0.0/dbhome_1"
+default['oracle']['setup']['oracle_home'] = "#{default['oracle']['setup']['oracle_base']}"
 #数据文件存放目录
 default['oracle']['setup']['oracle_data'] = "#{default['oracle']['setup']['oracle_dir']}/oradata"
 #数据库创建及使用过程中的日志目录
