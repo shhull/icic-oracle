@@ -63,9 +63,10 @@ end
 
 #Start the listener
 execute 'start_listener' do
-  command "#{node['oracle']['setup']['install_dir']}/bin/lsnrctl start"
+  command "#{node['oracle']['setup']['install_dir']}/bin/lsnrctl status"
   environment  (node['oracle']['setup']['env'])
   user 'oracle'
   group 'oinstall'
   action :run
+  returns [0, 253]
 end
