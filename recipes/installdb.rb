@@ -19,11 +19,11 @@ end
 bash 'dbca_create_db' do
    cwd "#{node['oracle']['setup']['install_dir']}/bin"
    environment (node['oracle']['setup']['env'])
-   code "sudo -Eu oracle ./dbca -silent -createDatabase -templateName General_Purpose.dbc -gdbname #{node['oracle']['setup']['oracle_sid']} -sid #{node['oracle']['setup']['oracle_sid']} -sysPassword #{node['oracle']['setup']['db_password']} -systemPassword #{node['oracle']['setup']['db_password']}"
+   code "sudo -Eu oracle ./dbca -silent -createDatabase -templateName General_Purpose.dbc -gdbname icic -sid icic -sysPassword dfltpass -systemPassword dfltpass -characterSet AL32UTF8"
    returns [0, 253]
 end
 
 
 #sudo -Eu oracle ./netca -silent -responsefile /home/u19/assistants/netca/netca.rsp
 #sudo -Eu oracle ./lsnrctl start LISTENER
-#sudo -Eu oracle ./dbca -silent -createDatabase -templateName General_Purpose.dbc -gdbname icic2 -sid icic2 -sysPassword dfltpass -systemPassword dfltpass -characterSet AL32UTF8
+#sudo -Eu oracle ./dbca -silent -createDatabase -templateName General_Purpose.dbc -gdbname icic -sid icic -sysPassword dfltpass -systemPassword dfltpass -characterSet AL32UTF8
