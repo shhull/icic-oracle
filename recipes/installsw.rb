@@ -7,21 +7,11 @@
 # All rights reserved - Do Not Redistribute
 #
 
-#Transfer installation files
-remote_directory "/usr/local/src/database" do
-  source 'database'
-  owner 'oracle'
-  group 'oinstall'
-  mode "0775"
-  recursive true
-end
-
 #Copy database installation files into ORACLE_HOME
 bash 'copy_oracle_home' do
   cwd "#{node['oracle']['setup']['install_dir']}"
   code "sudo -Eu oracle cp -r /usr/local/src/database/* ."
 end
-
 
 #Deployment of the response file for runInstaller
 template "#{node['oracle']['setup']['install_dir']}/install/response/db_install.rsp" do
