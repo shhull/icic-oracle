@@ -7,37 +7,21 @@
 # All rights reserved - Do Not Redistribute
 #
 
-# #Transfer installation files
-# remote_directory "#{node['oracle']['setup']['install_dir']}/database" do
-#   source 'database'
-#   owner 'oracle'
-#   group 'oinstall'
-#   mode "0775"
-#   recursive true
-# end
+#Transfer installation files
+remote_directory "/usr/local/src/database" do
+  source 'database'
+  owner 'oracle'
+  group 'oinstall'
+  mode "0775"
+  recursive true
+end
 
-# #Remove the ORACLE_HOME 
-# bash 'remove_oracle_home' do
-#   cwd "#{node['oracle']['setup']['install_dir']}"
-#   environment  (node['oracle']['setup']['env'])
-#   code "sudo -Eu oracle ./runInstaller -silent -detachHome ORACLE_HOME=#{node['oracle']['setup']['install_dir']}"
-# end
+#Copy database installation files into ORACLE_HOME
+bash 'copy_oracle_home' do
+  cwd "#{node['oracle']['setup']['install_dir']}"
+  code "sudo -Eu oracle cp -r /usr/local/src/database/* ."
+end
 
-# #Deployment of the response file for deinstall
-# template "#{node['oracle']['setup']['install_dir']}/install/response/deinstall.rsp.tmpl" do
-#   source 'deinstall.rsp.erb'
-#   owner 'oracle'
-#   group 'oinstall'
-#   mode '0644'
-# end
-
-# #Remove the ORACLE_HOME 
-# bash 'deinstall_oracle_home' do
-#   cwd "#{node['oracle']['setup']['install_dir']}/deinstall/"
-#   environment  (node['oracle']['setup']['env'])
-#   code "sudo -Eu oracle ./deinstall -paramfile #{node['oracle']['setup']['install_dir']}/install/response/deinstall.rsp.tmpl"
-#   returns [0, 253]
-# end
 
 #Deployment of the response file for runInstaller
 template "#{node['oracle']['setup']['install_dir']}/install/response/db_install.rsp" do
@@ -47,25 +31,15 @@ template "#{node['oracle']['setup']['install_dir']}/install/response/db_install.
   mode '0644'
 end
 
-# #Permission settings of the installation file
-# execute 'chown_database_install_files' do
-#   command <<-"EOH"
-#     chown -R oracle:oinstall #{node['oracle']['setup']['install_dir']}/database
-#     chmod -R 775 #{node['oracle']['setup']['install_dir']}/database
-#   EOH
-#   action :run
-#   only_if { ::File.exists?("#{node['oracle']['setup']['install_dir']}/database") }
-# end
-
-# #Remove files under the ORACLE_BASE and ORACLE_INVENTRY if exists
-# execute 'remove_install_directory' do
-#   command <<-"EOH"
-#     rm -rf #{node['oracle']['setup']['oracle_base']}/*
-#     rm -rf #{node['oracle']['setup']['oracle_inventry']}/*
-#   EOH
-#   action :run
-#   only_if { ::File.exists?("#{node['oracle']['setup']['oracle_home']}") }
-# end
+#Permission settings of the installation file
+execute 'chown_database_install_files' do
+  command <<-"EOH"
+    chown -R oracle:oinstall #{node['oracle']['setup']['install_dir']}
+    chmod -R 775 #{node['oracle']['setup']['install_dir']}
+  EOH
+  action :run
+  only_if { ::File.exists?("#{node['oracle']['setup']['install_dir']}") }
+end
 
 #run ./runInstaller
 bash 'run_installer_swonly' do
@@ -75,21 +49,11 @@ bash 'run_installer_swonly' do
   returns [0, 253]
 end
 
-# sudo -Eu oracle ./netca -silent -responsefile /home/u19/assistants/netca/netca.rsp
-# sudo -Eu oracle ./lsnrctl start LISTENER
-
-#run root.sh as root
-execute 'run_root.sh' do
-  command "#{node['oracle']['setup']['install_dir']}/root.sh"
-  action :run
+#Run root.sh
+bash 'run_rooot' do
+  cwd "#{node['oracle']['setup']['install_dir']}"
+  code "sh root.sh"
 end
-
-# #run orainstRoot.sh as root
-# execute 'orainstRoot.sh' do
-#   command "#{node['oracle']['setup']['oracle_inventry']}/orainstRoot.sh"
-#   action :run
-# end
-
 
 #start the licenstener
 bash 'run_listener' do
@@ -98,7 +62,6 @@ bash 'run_listener' do
   code "sudo -Eu oracle ./netca -silent -responseFile #{node['oracle']['setup']['install_dir']}/assistants/netca/netca.rsp"
   returns [0, 253]
 end
-
 
 #Deployment of the listener.ora
 template "#{node['oracle']['setup']['install_dir']}/network/admin/listener.ora" do
