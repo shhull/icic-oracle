@@ -17,8 +17,10 @@ end
 
 #Create Database
 bash 'dbca_create_db' do
+   cwd "#{node['oracle']['setup']['install_dir']}/bin"
    environment (node['oracle']['setup']['env'])
    code "sudo -Eu oracle ./dbca -silent -createDatabase -templateName General_Purpose.dbc -gdbname #{node['oracle']['setup']['oracle_sid']} -sid #{node['oracle']['setup']['oracle_sid']} -sysPassword #{node['oracle']['setup']['db_password']} -systemPassword #{node['oracle']['setup']['db_password']}"
+   returns [0, 253]
 end
 
 
